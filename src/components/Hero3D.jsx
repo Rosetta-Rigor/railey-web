@@ -3,12 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, MeshDistortMaterial, Sphere, Stars } from '@react-three/drei'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import * as THREE from 'three'
-
 function FloatingIsland() {
   const meshRef = useRef()
-  const mouseX = useRef(0)
-  const mouseY = useRef(0)
 
   useFrame(({ clock, pointer }) => {
     if (!meshRef.current) return

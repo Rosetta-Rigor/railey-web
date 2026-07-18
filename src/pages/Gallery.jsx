@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/SectionTitle.jsx'
 import GalleryGrid from '../components/GalleryGrid.jsx'
@@ -52,13 +53,13 @@ export default function Gallery() {
             title="Ready to Create Your Own Palawan Story?"
             subtitle="These photos could be yours. Book a tour and experience the magic of Palawan firsthand."
           />
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="btn btn-accent"
             style={{ fontSize: '1rem', padding: '16px 40px', marginTop: 16 }}
           >
             Book Your Adventure
-          </a>
+          </Link>
         </div>
       </AnimatedSection>
     </div>

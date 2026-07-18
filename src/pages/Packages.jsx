@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/SectionTitle.jsx'
 import PackageCard from '../components/PackageCard.jsx'
@@ -138,9 +139,9 @@ export default function Packages() {
             title="Don't See What You're Looking For?"
             subtitle="We offer fully customizable tour packages. Tell us your preferences and we'll build the perfect itinerary."
           />
-          <a href="/contact" className="btn btn-accent" style={{ fontSize: '1rem', padding: '16px 40px', marginTop: 16 }}>
+          <Link to="/contact" className="btn btn-accent" style={{ fontSize: '1rem', padding: '16px 40px', marginTop: 16 }}>
             Build Your Custom Package
-          </a>
+          </Link>
         </div>
       </AnimatedSection>
     </div>

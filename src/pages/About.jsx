@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/SectionTitle.jsx'
 import AnimatedSection from '../components/AnimatedSection.jsx'
@@ -214,13 +215,13 @@ export default function About() {
             title="Ready to Experience Palawan with Us?"
             subtitle="Send us a message and let's start planning your dream Palawan adventure."
           />
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="btn btn-accent"
             style={{ fontSize: '1rem', padding: '16px 40px', marginTop: 16 }}
           >
             Get in Touch
-          </a>
+          </Link>
         </div>
       </AnimatedSection>
     </div>
