@@ -419,6 +419,11 @@ ul { list-style: none; }
   html { font-size: 14px; }
 }
 
+/* ─── Spinner ─── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ─── Selection ─── */
 ::selection {
   background: rgba(29, 209, 161, 0.3);
