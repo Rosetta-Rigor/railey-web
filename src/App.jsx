@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
-import Home from './pages/Home.jsx'
-import Packages from './pages/Packages.jsx'
-import PackageDetail from './pages/PackageDetail.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
-import Gallery from './pages/Gallery.jsx'
+
+const Home = lazy(() => import('./pages/Home.jsx'))
+const Packages = lazy(() => import('./pages/Packages.jsx'))
+const PackageDetail = lazy(() => import('./pages/PackageDetail.jsx'))
+const About = lazy(() => import('./pages/About.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
+const Gallery = lazy(() => import('./pages/Gallery.jsx'))
 
 function App() {
   const location = useLocation()
@@ -72,16 +73,34 @@ function App() {
     <div className="app">
       <Navbar />
       <main>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/packages" element={<Packages />} />
-            <Route path="/packages/:id" element={<PackageDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/gallery" element={<Gallery />} />
-          </Routes>
-        </AnimatePresence>
+        <Suspense fallback={
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '60vh',
+          }}>
+            <div style={{
+              width: 48,
+              height: 48,
+              borderRadius: '50%',
+              border: '3px solid rgba(255,255,255,0.1)',
+              borderTopColor: 'var(--secondary)',
+              animation: 'spin 0.8s linear infinite',
+            }} />
+          </div>
+        }>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/packages" element={<Packages />} />
+              <Route path="/packages/:id" element={<PackageDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/gallery" element={<Gallery />} />
+            </Routes>
+          </AnimatePresence>
+        </Suspense>
       </main>
       <Footer />
     </div>
