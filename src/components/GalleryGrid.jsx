@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import BorderGlow from './BorderGlow.jsx'
 
 const galleryImages = [
   { src: '/images/el-nido.avif', title: 'El Nido Lagoon', category: 'Beach' },
   { src: '/images/subterranean-river-ppc.jfif', title: 'Underground River', category: 'Adventure' },
   { src: '/images/puerto-princesa-balayong-park.jfif', title: 'Balayong Park', category: 'Culture' },
-  { src: '/images/646205044_915915711159403_903168063845602095_n.jpg', title: 'Palawan Sunset', category: 'Beach' },
-  { src: '/images/647372035_1694539155046223_177040390575603868_n.jpg', title: 'Island Paradise', category: 'Beach' },
-  { src: '/images/744953210_3850628045231974_6814558146317264708_n.jpg', title: 'Marine Life', category: 'Adventure' },
-  { src: '/images/c5be6416-b218-4069-bfad-570e51071afc.jfif', title: 'Port Barton Beach', category: 'Beach' },
-  { src: '/images/da29a380-f42f-405d-a9a7-6160ece5f60a.jfif', title: 'Palawan Nature', category: 'Nature' },
-  { src: '/images/f15803da-a8da-4a80-8955-d222ca01b295.jfif', title: 'Tropical Escape', category: 'Nature' },
-  { src: '/images/16e46779-beeb-4a16-8c14-9c829f4589db.jfif', title: 'Coastal Views', category: 'Beach' },
+  { src: '/images/646205044_915915711159403_903168063845602095_n.jpg', title:  'Port Barton', category: 'Beach' },
+  { src: '/images/647372035_1694539155046223_177040390575603868_n.jpg', title: 'Port Barton', category: 'Beach' },
+  { src: '/images/744953210_3850628045231974_6814558146317264708_n.jpg', title:  'Port Barton', category: 'Beach' },
+  { src: '/images/c5be6416-b218-4069-bfad-570e51071afc.jfif', title: 'Underground River', category: 'Adventure'  },
+  { src: '/images/da29a380-f42f-405d-a9a7-6160ece5f60a.jfif', title: 'Underground River', category: 'Adventure'  },
+  { src: '/images/f15803da-a8da-4a80-8955-d222ca01b295.jfif', title: 'Underground River', category: 'Adventure'  },
+  { src: '/images/16e46779-beeb-4a16-8c14-9c829f4589db.jfif', title: 'Baker\'s hill', category: 'City' },
 ]
 
 export default function GalleryGrid() {
@@ -24,6 +25,21 @@ export default function GalleryGrid() {
         columnGap: 16,
       }}>
         {galleryImages.map((img, i) => (
+          <BorderGlow
+            glowColor="162 69 47"
+            backgroundColor="transparent"
+            borderRadius={16}
+            glowRadius={35}
+            glowIntensity={1}
+            edgeSensitivity={25}
+            coneSpread={40}
+            colors={['#1dd1a1', '#55efc4', '#f6b93b']}
+            fillOpacity={0.3}
+            style={{
+              breakInside: 'avoid',
+              marginBottom: 16,
+            }}
+          >
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
@@ -31,8 +47,6 @@ export default function GalleryGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
             style={{
-              breakInside: 'avoid',
-              marginBottom: 16,
               cursor: 'pointer',
               borderRadius: 16,
               overflow: 'hidden',
@@ -84,9 +98,9 @@ export default function GalleryGrid() {
               }}>
                 {img.category}
               </span>
-            </motion.div>
-          </motion.div>
-        ))}
+            </motion.div>            </motion.div>
+          </BorderGlow>
+          ))}
       </div>
 
       {/* Lightbox Modal */}

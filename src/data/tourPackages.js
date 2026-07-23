@@ -174,7 +174,7 @@ const tourPackages = [
     reviews: 84,
     location: "Puerto Princesa, Palawan",
     images: [
-      "/images/744953210_3850628045231974_6814558146317264708_n.jpg",
+      "/images/hondabay.jpg",
     ],
     description:
       "Escape to the stunning islands of Honda Bay! Snorkel in crystal-clear waters, relax on white sand beaches, and enjoy a fresh seafood lunch by the shore.",
@@ -212,7 +212,7 @@ const tourPackages = [
     reviews: 56,
     location: "Port Barton, Palawan",
     images: [
-      "/images/c5be6416-b218-4069-bfad-570e51071afc.jfif",
+      "/images/portbarton.jfif",
     ],
     description:
       "Discover the quiet charm of Port Barton — a hidden gem with fewer crowds, sea turtle sanctuaries, and untouched beaches. Perfect for a peaceful getaway.",

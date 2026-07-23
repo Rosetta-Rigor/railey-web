@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import BorderGlow from './BorderGlow.jsx'
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', package: '', message: '' })
@@ -32,6 +33,22 @@ export default function ContactForm() {
   }
 
   return (
+    <BorderGlow
+      glowColor="40 91 60"
+      backgroundColor="transparent"
+      borderRadius={16}
+      glowRadius={45}
+      glowIntensity={1.2}
+      edgeSensitivity={30}
+      coneSpread={38}
+      colors={['#f6b93b', '#e77f67', '#1dd1a1']}
+      fillOpacity={0.35}
+      style={{
+        maxWidth: 600,
+        margin: '0 auto',
+        width: '100%',
+      }}
+    >
     <motion.form
       onSubmit={handleSubmit}
       initial={{ opacity: 0, y: 30 }}
@@ -41,8 +58,6 @@ export default function ContactForm() {
       className="glass"
       style={{
         padding: '40px 36px',
-        maxWidth: 600,
-        margin: '0 auto',
         width: '100%',
       }}
     >
@@ -157,5 +172,6 @@ export default function ContactForm() {
         )}
       </motion.button>
     </motion.form>
+    </BorderGlow>
   )
 }

@@ -1,61 +1,132 @@
 import { useRef, useMemo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, MeshDistortMaterial, Sphere, Stars } from '@react-three/drei'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Stars } from '@react-three/drei'
+import { TextureLoader } from 'three'
+import * as THREE from 'three'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-function FloatingIsland() {
-  const meshRef = useRef()
+
+const EARTH_TEXTURE = 'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'
+
+function InteractiveGlobe() {
+  const groupRef = useRef()
+  const targetX = useRef(0)
+  const targetY = useRef(0)
+
+  // Load the earth texture
+  const colorMap = useLoader(TextureLoader, EARTH_TEXTURE)
 
   useFrame(({ clock, pointer }) => {
-    if (!meshRef.current) return
-    const t = clock.getElapsedTime()
-    meshRef.current.rotation.x = Math.sin(t * 0.2) * 0.1 + pointer.y * 0.3
-    meshRef.current.rotation.y = t * 0.1 + pointer.x * 0.5
-    meshRef.current.position.y = Math.sin(t * 0.4) * 0.15
+    if (!groupRef.current) return
+
+    targetX.current = pointer.y * 0.6
+    targetY.current = pointer.x * 1.0
+
+    groupRef.current.rotation.x += (targetX.current - groupRef.current.rotation.x) * 0.04
+    groupRef.current.rotation.y += (targetY.current - groupRef.current.rotation.y) * 0.04
+
+    groupRef.current.position.y = Math.sin(clock.getElapsedTime() * 0.3) * 0.12
   })
 
   return (
-    <group ref={meshRef}>
-      {/* Main shape — distorted torus knot representing island rings */}
-      <mesh position={[0, 0, 0]}>
-        <torusKnotGeometry args={[1.6, 0.5, 180, 24]} />
-        <MeshDistortMaterial
-          color="#1dd1a1"
+    <group ref={groupRef}>
+      {/* ─── Earth with continent texture ─── */}
+      <mesh>
+        <sphereGeometry args={[1.7, 64, 64]} />
+        <meshStandardMaterial
+          map={colorMap}
           emissive="#0a3d62"
-          emissiveIntensity={0.3}
-          roughness={0.2}
-          metalness={0.8}
-          distort={0.15}
-          speed={2}
-          transparent
-          opacity={0.9}
+          emissiveIntensity={0.08}
+          metalness={0.1}
+          roughness={0.8}
         />
       </mesh>
 
-      {/* Inner glow sphere */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.8, 32, 32]} />
-        <MeshDistortMaterial
-          color="#f6b93b"
-          emissive="#e77f67"
-          emissiveIntensity={0.5}
+      {/* ─── Subtle wireframe grid overlay ─── */}
+      <mesh>
+        <sphereGeometry args={[1.72, 20, 14]} />
+        <meshBasicMaterial
+          wireframe
+          color="#55efc4"
           transparent
-          opacity={0.4}
-          distort={0.1}
-          speed={1.5}
+          opacity={0.08}
         />
       </mesh>
 
-      {/* Orbiting ring */}
-      <mesh rotation={[Math.PI / 3, 0, 0]}>
-        <torusGeometry args={[2.4, 0.04, 32, 64]} />
-        <meshBasicMaterial color="#1dd1a1" transparent opacity={0.3} />
+      {/* ─── Atmosphere glow ─── */}
+      <mesh>
+        <sphereGeometry args={[1.88, 48, 48]} />
+        <meshBasicMaterial
+          color="#55efc4"
+          transparent
+          opacity={0.08}
+          side={THREE.BackSide}
+        />
       </mesh>
-      <mesh rotation={[-Math.PI / 4, Math.PI / 4, 0]}>
-        <torusGeometry args={[2.0, 0.03, 32, 64]} />
-        <meshBasicMaterial color="#f6b93b" transparent opacity={0.2} />
+
+      {/* ─── Orbital ring ─── */}
+      <mesh rotation={[Math.PI / 2.4, 0.2, 0]}>
+        <ringGeometry args={[1.95, 2.2, 64]} />
+        <meshBasicMaterial
+          color="rgba(255,255,255,0.2)"
+          transparent
+          opacity={0.15}
+          side={THREE.DoubleSide}
+        />
       </mesh>
+
+      {/* ─── Orbiting rings ─── */}
+      <mesh rotation={[Math.PI / 3, 0.1, 0]}>
+        <torusGeometry args={[2.5, 0.02, 16, 80]} />
+        <meshBasicMaterial color="#55efc4" transparent opacity={0.15} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 4, Math.PI / 3, 0]}>
+        <torusGeometry args={[2.1, 0.015, 16, 80]} />
+        <meshBasicMaterial color="#f6b93b" transparent opacity={0.1} />
+      </mesh>
+
+      <OrbitingDots />
     </group>
+  )
+}
+
+function OrbitingDots() {
+  const count = 24
+  const dotRef = useRef()
+
+  useFrame(({ clock }) => {
+    if (!dotRef.current) return
+    dotRef.current.rotation.y = clock.getElapsedTime() * 0.15
+  })
+
+  const positions = useMemo(() => {
+    const pos = []
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2
+      const radius = 2.7
+      pos.push(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.3, 0)
+    }
+    return new Float32Array(pos)
+  }, [])
+
+  return (
+    <points ref={dotRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.06}
+        color="#55efc4"
+        transparent
+        opacity={0.5}
+        sizeAttenuation
+      />
+    </points>
   )
 }
 
@@ -95,7 +166,7 @@ function ParticleField() {
         size={0.04}
         color="#1dd1a1"
         transparent
-        opacity={0.6}
+        opacity={0.5}
         sizeAttenuation
       />
     </points>
@@ -118,19 +189,17 @@ export default function Hero3D() {
         zIndex: 0,
       }}>
         <Canvas
-          camera={{ position: [0, 0, 6], fov: 45 }}
+          camera={{ position: [0, 0, 6.5], fov: 42 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true }}
         >
-          <ambientLight intensity={0.4} />
-          <pointLight position={[5, 5, 5]} intensity={1} color="#1dd1a1" />
-          <pointLight position={[-5, -3, 2]} intensity={0.5} color="#f6b93b" />
-          <directionalLight position={[0, 5, 10]} intensity={0.3} />
-          <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-            <FloatingIsland />
-          </Float>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[5, 5, 5]} intensity={0.8} color="#1dd1a1" />
+          <pointLight position={[-5, -3, 2]} intensity={0.4} color="#f6b93b" />
+          <directionalLight position={[0, 5, 10]} intensity={0.2} />
+          <InteractiveGlobe />
           <ParticleField />
-          <Stars radius={30} depth={60} count={800} factor={4} saturation={0} fade speed={0.5} />
+          <Stars radius={40} depth={70} count={1000} factor={4} saturation={0} fade speed={0.5} />
         </Canvas>
       </div>
 
@@ -138,7 +207,7 @@ export default function Hero3D() {
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(180deg, rgba(10,10,26,0.3) 0%, rgba(10,10,26,0.6) 50%, rgba(10,10,26,0.9) 100%)',
+        background: 'linear-gradient(180deg, rgba(10,10,26,0.2) 0%, rgba(10,10,26,0.5) 40%, rgba(10,10,26,0.85) 100%)',
         zIndex: 1,
       }} />
 
@@ -171,7 +240,7 @@ export default function Hero3D() {
             marginBottom: 24,
             letterSpacing: 1,
           }}>
-            ✦ Palawan's Premier Travel Agency
+            ✦ Your Go To Travel Agency For Affordable Palawan Adventures ✦
           </span>
         </motion.div>
 
@@ -253,7 +322,7 @@ export default function Hero3D() {
           }}
         >
           {[
-            { value: '500+', label: 'Happy Travelers' },
+            { value: '200+', label: 'Happy Travelers' },
             { value: '6+', label: 'Tour Packages' },
             { value: '4.9', label: 'Average Rating' },
           ].map((stat) => (

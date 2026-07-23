@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Hero3D from '../components/Hero3D.jsx'
 import PackageCard from '../components/PackageCard.jsx'
 import TestimonialCard, { testimonials } from '../components/TestimonialCard.jsx'
+import BorderGlow from '../components/BorderGlow.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import AnimatedSection from '../components/AnimatedSection.jsx'
 import tourPackages from '../data/tourPackages.js'
@@ -114,8 +115,20 @@ export default function Home() {
                 text: "Rated 4.9/5 by our travelers. We don't rest until you're smiling.",
               },
             ].map((item, i) => (
-              <motion.div
+              <BorderGlow
                 key={item.title}
+                glowColor="162 69 47"
+                backgroundColor="transparent"
+                borderRadius={16}
+                glowRadius={40}
+                glowIntensity={1}
+                edgeSensitivity={28}
+                coneSpread={38}
+                animated
+                colors={['#1dd1a1', '#55efc4', '#f6b93b']}
+                fillOpacity={0.35}
+              >
+              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -124,6 +137,7 @@ export default function Home() {
                 style={{
                   padding: '32px 24px',
                   textAlign: 'center',
+                  height: '100%',
                 }}
               >
                 <div style={{
@@ -154,6 +168,7 @@ export default function Home() {
                   {item.text}
                 </p>
               </motion.div>
+              </BorderGlow>
             ))}
           </div>
         </div>

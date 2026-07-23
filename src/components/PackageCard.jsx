@@ -41,30 +41,19 @@ export default function PackageCard({ pkg, index = 0 }) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{
+            rotateX,
+            rotateY,
             perspective: 1000,
             transformStyle: 'preserve-3d',
+            background: 'rgba(255, 255, 255, 0.04)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            borderRadius: 20,
+            overflow: 'hidden',
+            position: 'relative',
+            height: '100%',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
           }}
-          whileHover={{ z: 20 }}
-        >
-          <motion.div
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: 'preserve-3d',
-              background: 'rgba(255, 255, 255, 0.04)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: 20,
-              overflow: 'hidden',
-              position: 'relative',
-              height: '100%',
-              transition: 'border-color 0.3s ease',
-            }}
-            whileHover={{
-              borderColor: 'rgba(29, 209, 161, 0.3)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
-            }}
           >
             {/* Image */}
             <div style={{
@@ -242,7 +231,6 @@ export default function PackageCard({ pkg, index = 0 }) {
               </div>
             </div>
           </motion.div>
-        </motion.div>
       </Link>
     </motion.div>
   )

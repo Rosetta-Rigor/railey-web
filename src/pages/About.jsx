@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import BorderGlow from '../components/BorderGlow.jsx'
 import SectionTitle from '../components/SectionTitle.jsx'
 import AnimatedSection from '../components/AnimatedSection.jsx'
 
@@ -27,7 +28,7 @@ export default function About() {
             <SectionTitle
               tag="About Us"
               title="Your Palawan Travel Partners"
-              subtitle="We're a family-run travel agency based in Puerto Princesa, dedicated to showing you the real Palawan."
+              subtitle="Founded by Marissa Austria in 2022 — honest service, unbeatable value, and a deep love for Palawan."
             />
           </motion.div>
         </div>
@@ -49,14 +50,14 @@ export default function About() {
                 marginBottom: 20,
                 lineHeight: 1.3,
               }}>
-                From a Dream to{' '}
+                From Humble Beginnings to{' '}
                 <span style={{
                   background: 'var(--gradient-ocean)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                 }}>
-                  Palawan's Trusted Tour Operator
+                  Palawan's Rising Star
                 </span>
               </h3>
               <p style={{
@@ -64,21 +65,63 @@ export default function About() {
                 lineHeight: 1.8,
                 marginBottom: 16,
               }}>
-                Railey's Travel & Tours was born from a simple belief — that everyone deserves to experience the magic of Palawan without the stress of planning. Founded in 2018 by Railey, a born-and-raised Palaweno with an unwavering love for these islands, our company has grown from a tiny operation to one of Puerto Princesa's most trusted tour agencies.
+                Railey's Travel and Tours was established by{' '}
+                <strong style={{ color: 'rgba(255,255,255,0.8)' }}>Marissa Austria</strong> in{' '}
+                <strong style={{ color: 'rgba(255,255,255,0.8)' }}>2022</strong>. What began as a small,
+                passionate operation built on nothing but honesty and determination has grown into
+                a trusted name in Palawan tourism. We started slow, but we made a promise from
+                day one — to provide honest, quality services that travelers could count on.
               </p>
               <p style={{
                 color: 'var(--text-muted)',
                 lineHeight: 1.8,
                 marginBottom: 16,
               }}>
-                What started as guiding a few friends to hidden lagoons and secret beaches has blossomed into a full-service travel company. Today, we've hosted over 500 travelers from around the world — from solo backpackers to family reunions, from couples on honeymoon to corporate groups seeking adventure.
+                Our selling point is simple: we offer the{' '}
+                <strong style={{ color: 'rgba(255,255,255,0.8)' }}>most affordable tour packages</strong>{' '}
+                in Palawan while keeping the quality as best as we possibly could. We believe
+                that incredible experiences shouldn't come with a hefty price tag — everyone
+                deserves to fall in love with these islands without breaking the bank.
               </p>
               <p style={{
                 color: 'var(--text-muted)',
                 lineHeight: 1.8,
               }}>
-                Our secret? We treat every traveler like family. We don't just show you the tourist spots — we share our home with you. We know the best time to visit the Underground River to avoid crowds, the local eateries that serve the freshest seafood, and the hidden viewpoints that aren't on any map. Because Palawan isn't just our business — it's our home.
+                Today, our agency has grown to partner with more than{' '}
+                <strong style={{ color: 'rgba(255,255,255,0.8)' }}>5 local businesses</strong>{' '}
+                and has proudly serviced more than{' '}
+                <strong style={{ color: 'rgba(255,255,255,0.8)' }}>200 customers</strong> — and
+                we're just getting started. Every tour, every smile, every "wow" moment from our
+                guests fuels our passion to keep doing what we do best.
               </p>
+              <div style={{
+                marginTop: 28,
+                padding: '20px 24px',
+                background: 'linear-gradient(135deg, rgba(29,209,161,0.08) 0%, rgba(246,185,59,0.06) 100%)',
+                borderRadius: 12,
+                borderLeft: '3px solid var(--accent)',
+              }}>
+                <p style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontStyle: 'italic',
+                  fontSize: '1.1rem',
+                  color: 'rgba(255,255,255,0.7)',
+                  letterSpacing: '0.5px',
+                  margin: 0,
+                }}>
+                  "Affordable Escapes, Unforgettable Memories"
+                </p>
+                <p style={{
+                  fontSize: '0.75rem',
+                  color: 'var(--text-muted)',
+                  marginTop: 6,
+                  marginBottom: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                }}>
+                  — Our Motto
+                </p>
+              </div>
             </motion.div>
 
             <motion.div
@@ -98,12 +141,25 @@ export default function About() {
                   gap: 20,
                 }}>
                   {[
-                    { value: '500+', label: 'Happy Travelers' },
-                    { value: '6', label: 'Years Experience' },
+                    { value: '200+', label: 'Happy Travelers' },
+                    { value: '4', label: 'Years of Excellence' },
                     { value: '4.9', label: 'Average Rating' },
-                    { value: '12+', label: 'Tour Partners' },
+                    { value: '5+', label: 'Business Partners' },
                   ].map((stat) => (
-                    <div key={stat.label} style={{
+                    <BorderGlow
+                      key={stat.label}
+                      glowColor="162 69 47"
+                      backgroundColor="transparent"
+                      borderRadius={16}
+                      glowRadius={35}
+                      glowIntensity={1}
+                      edgeSensitivity={25}
+                      coneSpread={40}
+                      animated
+                      colors={['#1dd1a1', '#55efc4', '#f6b93b']}
+                      fillOpacity={0.3}
+                    >
+                    <div style={{
                       textAlign: 'center',
                       padding: '24px 16px',
                       background: 'rgba(255,255,255,0.03)',
@@ -124,6 +180,7 @@ export default function About() {
                         {stat.label}
                       </div>
                     </div>
+                    </BorderGlow>
                   ))}
                 </div>
               </div>
@@ -173,8 +230,20 @@ export default function About() {
                 text: "Travel hiccups happen — we've got your back. Our team is available around the clock to handle any issues during your trip.",
               },
             ].map((value, i) => (
-              <motion.div
+              <BorderGlow
                 key={i}
+                glowColor="40 91 60"
+                backgroundColor="transparent"
+                borderRadius={16}
+                glowRadius={45}
+                glowIntensity={1}
+                edgeSensitivity={28}
+                coneSpread={38}
+                animated
+                colors={['#f6b93b', '#e77f67', '#1dd1a1']}
+                fillOpacity={0.4}
+              >
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -183,6 +252,7 @@ export default function About() {
                 style={{
                   padding: '32px 24px',
                   textAlign: 'center',
+                  height: '100%',
                 }}
               >
                 <div style={{ fontSize: '2.5rem', marginBottom: 16 }}>{value.icon}</div>
@@ -202,6 +272,7 @@ export default function About() {
                   {value.text}
                 </p>
               </motion.div>
+              </BorderGlow>
             ))}
           </div>
         </div>
