@@ -55,27 +55,37 @@ export default function Navbar() {
         <Link to="/" style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
-          fontSize: '1.4rem',
-          fontFamily: "'Playfair Display', serif",
-          fontWeight: 700,
-          background: 'linear-gradient(135deg, #1dd1a1, #f6b93b)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
+          gap: 10,
+          textDecoration: 'none',
         }}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#logoGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <defs>
-              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1dd1a1" />
-                <stop offset="100%" stopColor="#f6b93b" />
-              </linearGradient>
-            </defs>
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            <path d="M2 12h20" />
-          </svg>
-          Railey's
+          <img
+            src="/images/logo.png"
+            alt="Railey's Travel & Tours"
+            style={{
+              height: 36,
+              width: 'auto',
+              display: 'block',
+              filter: 'brightness(1.1) contrast(1.05)',
+              transition: 'all 0.4s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.filter = 'brightness(1.2) contrast(1.1) drop-shadow(0 0 8px rgba(29, 209, 161, 0.5)) drop-shadow(0 0 16px rgba(246, 185, 59, 0.3))'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.filter = 'brightness(1.1) contrast(1.05)'
+            }}
+          />
+          <span style={{
+            fontSize: '1.4rem',
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 700,
+            background: 'linear-gradient(135deg, #1dd1a1, #f6b93b)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
+            Railey's
+          </span>
         </Link>
 
         {/* Desktop Links */}

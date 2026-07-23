@@ -33,11 +33,25 @@ export default function Footer() {
               Your trusted partner for unforgettable Palawan experiences. We handle everything — you just enjoy the trip.
             </p>
             <div style={{ display: 'flex', gap: 12 }}>
-              {['FB', 'IG', 'TW'].map((social) => (
+              {[
+                { label: 'FB', color: '#1877F2', link: 'https://web.facebook.com/profile.php?id=100069375394847' },
+              ].map((social) => (
                 <motion.a
-                  key={social}
-                  href="#"
+                  key={social.label}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = `${social.color}33`
+                    e.target.style.borderColor = `${social.color}66`
+                    e.target.style.color = social.color
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255,255,255,0.06)'
+                    e.target.style.borderColor = 'rgba(255,255,255,0.08)'
+                    e.target.style.color = 'var(--text-muted)'
+                  }}
                   style={{
                     width: 36,
                     height: 36,
@@ -53,7 +67,7 @@ export default function Footer() {
                     transition: 'var(--transition)',
                   }}
                 >
-                  {social}
+                  {social.label}
                 </motion.a>
               ))}
             </div>
@@ -140,9 +154,25 @@ export default function Footer() {
             </h4>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 2 }}>
               <p>📍 Puerto Princesa, Palawan</p>
-              <p>📞 +63 912 345 6789</p>
-              <p>✉️ hello@raileystravel.com</p>
-              <p>🕐 Mon–Sat: 8AM – 6PM</p>
+              <p>📞 0953 254 5077</p>
+              <p>
+                <a
+                  href="https://wa.me/639196729666"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#25D366',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+                  onMouseLeave={(e) => e.target.style.opacity = '1'}
+                >
+                  💬 +63 919 672 9666 (WhatsApp)
+                </a>
+              </p>
+              <p>✉️ raileyspalawantours@yahoo.com</p>
+              <p>🕐 ALWAYS OPEN</p>
             </div>
           </div>
         </div>

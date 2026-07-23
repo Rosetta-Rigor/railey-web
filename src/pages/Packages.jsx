@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import SectionTitle from '../components/SectionTitle.jsx'
 import PackageCard from '../components/PackageCard.jsx'
 import AnimatedSection from '../components/AnimatedSection.jsx'
@@ -104,29 +104,31 @@ export default function Packages() {
       {/* Packages Grid */}
       <AnimatedSection className="section">
         <div className="container">
-          <motion.div
-            layout
-            className="grid-3"
-            style={{ alignItems: 'stretch', gap: 28 }}
-          >
-            {filtered.map((pkg, i) => (
-              <motion.div
-                key={pkg.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-              >
-                <PackageCard pkg={pkg} index={i} />
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="grid-3" style={{ alignItems: 'stretch', gap: 28, minHeight: 300 }}>
+            <AnimatePresence mode="popLayout">
+              {filtered.map((pkg, i) => (
+                <motion.div
+                  key={pkg.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.35, delay: i * 0.04 }}
+                  style={{ height: '100%' }}
+                >
+                  <PackageCard pkg={pkg} index={i} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
 
           {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}
+            >
               <p style={{ fontSize: '1.2rem' }}>No packages match this filter.</p>
-            </div>
+            </motion.div>
           )}
         </div>
       </AnimatedSection>
